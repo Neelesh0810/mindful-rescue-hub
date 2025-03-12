@@ -3,8 +3,12 @@ import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import { HandHeart } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { Link } from "react-router-dom";
+import { useAuth } from "@/context/AuthContext";
 
 const Volunteers = () => {
+  const { currentUser } = useAuth();
+  
   return (
     <div className="min-h-screen bg-background text-foreground flex flex-col">
       <Navbar />
@@ -23,8 +27,10 @@ const Volunteers = () => {
             <p className="text-gray-400 mb-6 max-w-2xl mx-auto">
               Your skills and time can make a significant difference in disaster response and recovery efforts.
             </p>
-            <Button size="lg" className="bg-white text-black hover:bg-gray-200">
-              Sign Up Now
+            <Button size="lg" className="bg-white text-black hover:bg-gray-200" asChild>
+              <Link to={currentUser ? "/register/volunteer" : "/auth"}>
+                {currentUser ? "Sign Up Now" : "Login to Register"}
+              </Link>
             </Button>
           </div>
           

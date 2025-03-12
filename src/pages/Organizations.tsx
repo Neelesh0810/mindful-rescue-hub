@@ -1,10 +1,15 @@
 
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
-import { Users, Flag } from "lucide-react";
+import { Users, Flag, Building } from "lucide-react";
 import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/ui/tabs";
+import { Button } from "@/components/ui/button";
+import { Link } from "react-router-dom";
+import { useAuth } from "@/context/AuthContext";
 
 const Organizations = () => {
+  const { currentUser } = useAuth();
+  
   return (
     <div className="min-h-screen bg-background text-foreground flex flex-col">
       <Navbar />
@@ -14,9 +19,18 @@ const Organizations = () => {
             <Users size={28} className="mr-3" />
             <h1 className="text-3xl md:text-4xl font-bold">For Organizations</h1>
           </div>
-          <p className="text-center text-gray-400 max-w-2xl mx-auto mb-12">
+          <p className="text-center text-gray-400 max-w-2xl mx-auto mb-8">
             Resources and coordination tools for NGOs and government agencies involved in disaster response.
           </p>
+          
+          <div className="text-center mb-12">
+            <Button size="lg" className="bg-white text-black hover:bg-gray-200" asChild>
+              <Link to={currentUser ? "/register/organization" : "/auth"}>
+                <Building className="mr-2" size={18} />
+                {currentUser ? "Register Organization" : "Login to Register"}
+              </Link>
+            </Button>
+          </div>
           
           <Tabs defaultValue="ngos" className="max-w-4xl mx-auto">
             <TabsList className="grid grid-cols-2 mb-8">

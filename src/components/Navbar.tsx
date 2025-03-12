@@ -2,10 +2,18 @@
 import React from "react";
 import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";
-import { Menu, X } from "lucide-react";
+import { Menu, X, LogIn, LogOut, User } from "lucide-react";
+import { useAuth } from "@/context/AuthContext";
+import { toast } from "sonner";
 
 const Navbar = () => {
   const [isMenuOpen, setIsMenuOpen] = React.useState(false);
+  const { currentUser, logout } = useAuth();
+
+  const handleLogout = () => {
+    logout();
+    toast.success("Logged out successfully");
+  };
 
   return (
     <nav className="sticky top-0 z-50 backdrop-blur-lg bg-black/80 border-b border-white/10">
@@ -20,8 +28,31 @@ const Navbar = () => {
           <Link to="/volunteers" className="text-sm font-medium hover:text-white transition-colors">Volunteers</Link>
           <Link to="/organizations" className="text-sm font-medium hover:text-white transition-colors">Organizations</Link>
           <Link to="/news" className="text-sm font-medium hover:text-white transition-colors">Updates</Link>
-          <Button variant="outline" className="ml-4 border-white/20 hover:bg-white hover:text-black transition-all">
-            Emergency Help
+          
+          {currentUser ? (
+            <div className="flex items-center space-x-4">
+              <div className="text-sm font-medium">
+                <User size={16} className="inline-block mr-2" />
+                {currentUser.name || 'User'}
+              </div>
+              <Button variant="outline" size="sm" className="border-white/20 hover:bg-white hover:text-black transition-all" onClick={handleLogout}>
+                <LogOut size={16} className="mr-2" />
+                Logout
+              </Button>
+            </div>
+          ) : (
+            <Button variant="outline" size="sm" className="border-white/20 hover:bg-white hover:text-black transition-all" asChild>
+              <Link to="/auth">
+                <LogIn size={16} className="mr-2" />
+                Login
+              </Link>
+            </Button>
+          )}
+          
+          <Button variant="outline" className="border-white/20 hover:bg-white hover:text-black transition-all" asChild>
+            <Link to="/emergency">
+              Emergency Help
+            </Link>
           </Button>
         </div>
 
@@ -42,8 +73,34 @@ const Navbar = () => {
             <Link to="/volunteers" className="text-sm font-medium py-2 hover:text-white transition-colors" onClick={() => setIsMenuOpen(false)}>Volunteers</Link>
             <Link to="/organizations" className="text-sm font-medium py-2 hover:text-white transition-colors" onClick={() => setIsMenuOpen(false)}>Organizations</Link>
             <Link to="/news" className="text-sm font-medium py-2 hover:text-white transition-colors" onClick={() => setIsMenuOpen(false)}>Updates</Link>
-            <Button variant="outline" className="border-white/20 hover:bg-white hover:text-black transition-all" onClick={() => setIsMenuOpen(false)}>
-              Emergency Help
+            
+            {currentUser ? (
+              <>
+                <div className="text-sm font-medium py-2">
+                  <User size={16} className="inline-block mr-2" />
+                  {currentUser.name || 'User'}
+                </div>
+                <Button variant="outline" className="border-white/20 hover:bg-white hover:text-black transition-all" onClick={() => {
+                  handleLogout();
+                  setIsMenuOpen(false);
+                }}>
+                  <LogOut size={16} className="mr-2" />
+                  Logout
+                </Button>
+              </>
+            ) : (
+              <Button variant="outline" className="border-white/20 hover:bg-white hover:text-black transition-all" asChild onClick={() => setIsMenuOpen(false)}>
+                <Link to="/auth">
+                  <LogIn size={16} className="mr-2" />
+                  Login
+                </Link>
+              </Button>
+            )}
+            
+            <Button variant="outline" className="border-white/20 hover:bg-white hover:text-black transition-all" asChild onClick={() => setIsMenuOpen(false)}>
+              <Link to="/emergency">
+                Emergency Help
+              </Link>
             </Button>
           </div>
         </div>

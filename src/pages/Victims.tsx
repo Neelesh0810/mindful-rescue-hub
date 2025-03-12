@@ -2,8 +2,13 @@
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import { AlertTriangle } from "lucide-react";
+import { Button } from "@/components/ui/button";
+import { Link } from "react-router-dom";
+import { useAuth } from "@/context/AuthContext";
 
 const Victims = () => {
+  const { currentUser } = useAuth();
+  
   return (
     <div className="min-h-screen bg-background text-foreground flex flex-col">
       <Navbar />
@@ -20,7 +25,20 @@ const Victims = () => {
           <div className="bg-black/40 border border-white/10 rounded-lg p-8 mb-12">
             <h2 className="text-2xl font-bold mb-4">Emergency Information Line</h2>
             <p className="text-xl font-mono text-center mb-2">1-800-123-4567</p>
-            <p className="text-gray-400 text-center">Available 24/7 for immediate assistance</p>
+            <p className="text-gray-400 text-center mb-6">Available 24/7 for immediate assistance</p>
+            
+            <div className="flex justify-center">
+              <Button className="bg-white text-black hover:bg-gray-200 mr-4" asChild>
+                <Link to="/register/victim">
+                  Register as Victim
+                </Link>
+              </Button>
+              <Button variant="outline" className="border-white/20" asChild>
+                <Link to="/emergency">
+                  Emergency Help
+                </Link>
+              </Button>
+            </div>
           </div>
           
           {/* Placeholder content - would be replaced with actual resources */}

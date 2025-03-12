@@ -2,8 +2,13 @@
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import { HandHeart, TrendingUp, Clock, MapPin } from "lucide-react";
+import { Link } from "react-router-dom";
+import { useAuth } from "@/context/AuthContext";
+import { toast } from "sonner";
 
 const VolunteerSection = () => {
+  const { currentUser } = useAuth();
+  
   const volunteerOpportunities = [
     {
       title: "Medical Support",
@@ -28,6 +33,15 @@ const VolunteerSection = () => {
     }
   ];
 
+  const handleVolunteerClick = (opportunity: string) => {
+    if (!currentUser) {
+      toast.error("Please login to sign up for volunteer opportunities");
+      return;
+    }
+    
+    toast.success(`You've signed up for ${opportunity}. We'll contact you soon.`);
+  };
+
   return (
     <section className="py-20 bg-accent">
       <div className="container mx-auto px-4">
@@ -42,8 +56,10 @@ const VolunteerSection = () => {
             </p>
           </div>
           <div className="mt-6 md:mt-0">
-            <Button size="lg" className="bg-white text-black hover:bg-gray-200">
-              Register as Volunteer
+            <Button size="lg" className="bg-white text-black hover:bg-gray-200" asChild>
+              <Link to={currentUser ? "/register/volunteer" : "/auth"}>
+                Register as Volunteer
+              </Link>
             </Button>
           </div>
         </div>
@@ -71,8 +87,17 @@ const VolunteerSection = () => {
                 </div>
               </CardContent>
               <CardFooter>
-                <Button variant="outline" className="w-full border-white/20 hover:bg-white/10">
-                  Sign Up
+                <Button 
+                  variant="outline" 
+                  className="w-full border-white/20 hover:bg-white/10"
+                  onClick={() => handleVolunteerClick(opportunity.title)}
+                  asChild={!currentUser}
+                >
+                  {!currentUser ? (
+                    <Link to="/auth">Login to Sign Up</Link>
+                  ) : (
+                    "Sign Up"
+                  )}
                 </Button>
               </CardFooter>
             </Card>
