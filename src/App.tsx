@@ -15,6 +15,8 @@ import Auth from "./pages/Auth";
 import VictimRegistration from "./pages/VictimRegistration";
 import VolunteerRegistration from "./pages/VolunteerRegistration";
 import OrganizationRegistration from "./pages/OrganizationRegistration";
+import Profile from "./pages/Profile";
+import AdminDashboard from "./pages/AdminDashboard";
 import { AuthProvider } from "./context/AuthContext";
 
 const queryClient = new QueryClient();
@@ -34,6 +36,8 @@ const App = () => (
             <Route path="/news" element={<News />} />
             <Route path="/emergency" element={<Emergency />} />
             <Route path="/auth" element={<Auth />} />
+            <Route path="/profile" element={<Profile />} />
+            <Route path="/admin" element={<AdminDashboard />} />
             <Route path="/register/victim" element={<VictimRegistration />} />
             <Route path="/register/volunteer" element={<VolunteerRegistration />} />
             <Route path="/register/organization" element={<OrganizationRegistration />} />

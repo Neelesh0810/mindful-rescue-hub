@@ -5,7 +5,7 @@ import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle }
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { LogIn, UserPlus } from "lucide-react";
+import { LogIn, UserPlus, AlertCircle } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
@@ -107,6 +107,19 @@ const Auth = () => {
                         required
                         className="bg-black/60 border-white/10"
                       />
+                    </div>
+                    
+                    <div className="p-3 bg-black/30 border border-white/5 rounded-md">
+                      <div className="flex items-start">
+                        <AlertCircle size={16} className="mt-0.5 mr-2 flex-shrink-0" />
+                        <div>
+                          <p className="text-sm font-medium mb-1">Admin Login</p>
+                          <p className="text-xs text-gray-400">
+                            Email: admin@rescuehub.com<br />
+                            Password: admin123
+                          </p>
+                        </div>
+                      </div>
                     </div>
                   </CardContent>
                   <CardFooter>

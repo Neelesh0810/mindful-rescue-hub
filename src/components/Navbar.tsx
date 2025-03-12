@@ -2,7 +2,7 @@
 import React from "react";
 import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";
-import { Menu, X, LogIn, LogOut, User } from "lucide-react";
+import { Menu, X, LogIn, LogOut, User, Shield } from "lucide-react";
 import { useAuth } from "@/context/AuthContext";
 import { toast } from "sonner";
 
@@ -31,14 +31,28 @@ const Navbar = () => {
           
           {currentUser ? (
             <div className="flex items-center space-x-4">
-              <div className="text-sm font-medium">
-                <User size={16} className="inline-block mr-2" />
-                {currentUser.name || 'User'}
+              <div className="flex items-center space-x-1">
+                {currentUser.role === "admin" && (
+                  <Button variant="outline" size="sm" className="border-white/20 hover:bg-white hover:text-black transition-all" asChild>
+                    <Link to="/admin">
+                      <Shield size={16} className="mr-2" />
+                      Admin
+                    </Link>
+                  </Button>
+                )}
+                
+                <Button variant="outline" size="sm" className="border-white/20 hover:bg-white hover:text-black transition-all" asChild>
+                  <Link to="/profile">
+                    <User size={16} className="mr-2" />
+                    {currentUser.name || 'Profile'}
+                  </Link>
+                </Button>
+                
+                <Button variant="outline" size="sm" className="border-white/20 hover:bg-white hover:text-black transition-all" onClick={handleLogout}>
+                  <LogOut size={16} className="mr-2" />
+                  Logout
+                </Button>
               </div>
-              <Button variant="outline" size="sm" className="border-white/20 hover:bg-white hover:text-black transition-all" onClick={handleLogout}>
-                <LogOut size={16} className="mr-2" />
-                Logout
-              </Button>
             </div>
           ) : (
             <Button variant="outline" size="sm" className="border-white/20 hover:bg-white hover:text-black transition-all" asChild>
@@ -76,10 +90,18 @@ const Navbar = () => {
             
             {currentUser ? (
               <>
-                <div className="text-sm font-medium py-2">
+                {currentUser.role === "admin" && (
+                  <Link to="/admin" className="text-sm font-medium py-2 hover:text-white transition-colors flex items-center" onClick={() => setIsMenuOpen(false)}>
+                    <Shield size={16} className="inline-block mr-2" />
+                    Admin Dashboard
+                  </Link>
+                )}
+                
+                <Link to="/profile" className="text-sm font-medium py-2 hover:text-white transition-colors flex items-center" onClick={() => setIsMenuOpen(false)}>
                   <User size={16} className="inline-block mr-2" />
-                  {currentUser.name || 'User'}
-                </div>
+                  My Profile
+                </Link>
+                
                 <Button variant="outline" className="border-white/20 hover:bg-white hover:text-black transition-all" onClick={() => {
                   handleLogout();
                   setIsMenuOpen(false);

@@ -22,6 +22,22 @@ const AuthContext = createContext<AuthContextType | undefined>(undefined);
 const mockLogin = (email: string, password: string): Promise<User> => {
   return new Promise((resolve, reject) => {
     setTimeout(() => {
+      // Admin special case
+      if (email === "admin@rescuehub.com" && password === "admin123") {
+        const adminUser: User = {
+          id: "admin-1",
+          email: "admin@rescuehub.com",
+          name: "Admin User",
+          role: "admin"
+        };
+        // Store admin in localStorage if not already there
+        if (!localStorage.getItem(`user-${email}`)) {
+          localStorage.setItem(`user-${email}`, JSON.stringify(adminUser));
+        }
+        resolve(adminUser);
+        return;
+      }
+      
       // For demo purposes, accept any valid email/password
       if (email && password) {
         // Check localStorage for existing user
