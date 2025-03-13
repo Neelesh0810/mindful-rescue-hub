@@ -1,14 +1,14 @@
 
-import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";
 import { AlertTriangle, HandHeart, Users } from "lucide-react";
+import { Button } from "@/components/ui/button";
 
 const Hero = () => {
   return (
     <div className="relative overflow-hidden">
-      <div className="absolute inset-0 bg-[url('/lovable-uploads/3ee5512c-b570-446f-ba7a-e76d2f16affc.png')] bg-cover bg-center brightness-[0.4]"></div>
+      <div className="absolute inset-0 hero-bg"></div>
       
-      <div className="relative container mx-auto px-4 py-20 md:py-32 flex flex-col items-center">
+      <div className="relative container px-4 py-20 md:py-32 flex flex-col items-center">
         <h1 className="text-4xl md:text-6xl font-bold text-center text-shadow mb-6">
           Disaster Response & <span className="text-gradient">Recovery</span>
         </h1>
@@ -18,13 +18,13 @@ const Hero = () => {
         </p>
         
         <div className="flex flex-col sm:flex-row gap-4 mb-16">
-          <Button asChild size="lg" className="bg-white text-black hover:bg-gray-200">
+          <Button asChild size="lg" className="btn btn-primary btn-lg">
             <Link to="/emergency">
               <AlertTriangle size={18} className="mr-2" />
               I Need Help
             </Link>
           </Button>
-          <Button asChild size="lg" variant="outline" className="border-white/20 hover:bg-white/10">
+          <Button asChild size="lg" variant="outline" className="btn btn-outline btn-lg">
             <Link to="/volunteer">
               <HandHeart size={18} className="mr-2" />
               Volunteer
@@ -53,11 +53,11 @@ const Hero = () => {
               link: "/organizations"
             }
           ].map((item, index) => (
-            <div key={index} className="bg-black/60 backdrop-blur-sm border border-white/10 rounded-lg p-6 flex flex-col items-center text-center hover:bg-black/80 transition-colors">
-              <div className="mb-4 p-3 bg-white/10 rounded-full">{item.icon}</div>
+            <div key={index} className="card p-6 flex flex-col items-center text-center">
+              <div className="card-icon">{item.icon}</div>
               <h3 className="text-xl font-bold mb-2">{item.title}</h3>
               <p className="text-gray-400 mb-4">{item.description}</p>
-              <Button asChild variant="link" className="mt-auto">
+              <Button asChild variant="link" className="btn btn-link mt-auto">
                 <Link to={item.link}>Learn More</Link>
               </Button>
             </div>
