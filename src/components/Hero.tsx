@@ -6,7 +6,7 @@ import { AlertTriangle, HandHeart, Users } from "lucide-react";
 const Hero = () => {
   return (
     <div className="relative overflow-hidden">
-      <div className="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1605810230434-7631ac76ec81?auto=format&fit=crop&w=1920&q=80')] bg-cover bg-center brightness-[0.2]"></div>
+      <div className="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1546500702-ae7b0f3f3cf0?auto=format&fit=crop&w=1920&q=80')] bg-cover bg-center brightness-[0.2]"></div>
       
       <div className="relative container mx-auto px-4 py-20 md:py-32 flex flex-col items-center">
         <h1 className="text-4xl md:text-6xl font-bold text-center text-shadow mb-6">
