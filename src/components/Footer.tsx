@@ -1,54 +1,7 @@
 
 import { Link } from "react-router-dom";
-import { AlertTriangle, AlertCircle } from "lucide-react";
-import { toast } from "sonner";
 
 const Footer = () => {
-  const handleFindShelters = () => {
-    // Check if geolocation is available
-    if (!navigator.geolocation) {
-      toast.error("Geolocation is not supported by your browser");
-      return;
-    }
-    
-    // Request user location
-    navigator.geolocation.getCurrentPosition(
-      (position) => {
-        // If successful, redirect to shelters page
-        window.location.href = "/shelters";
-      },
-      (error) => {
-        // If error, show error message
-        console.error("Error getting location:", error);
-        toast.error("Unable to access your location. Please allow location access and try again.");
-      }
-    );
-  };
-  
-  const handleEmergencyHelp = () => {
-    // Send emergency notification to admin
-    const emailData = {
-      to: "neeleshkumar10.2004@gmail.com",
-      subject: "EMERGENCY ALERT",
-      body: `
-        Someone has requested emergency help!
-        
-        Time: ${new Date().toLocaleString()}
-        Browser: ${navigator.userAgent}
-        
-        This is a high-priority alert.
-      `
-    };
-    
-    console.log("Emergency notification would be sent:", emailData);
-    
-    // Show confirmation to user
-    toast.success("Emergency services have been notified");
-    
-    // Redirect to emergency page
-    window.location.href = "/emergency";
-  };
-  
   return (
     <footer className="bg-black py-12 border-t border-white/10">
       <div className="container mx-auto px-4">
@@ -73,23 +26,8 @@ const Footer = () => {
           <div>
             <h4 className="text-lg font-medium mb-4">Quick Links</h4>
             <ul className="space-y-2">
-              <li>
-                <button
-                  onClick={handleEmergencyHelp}
-                  className="text-gray-400 hover:text-white transition-colors flex items-center"
-                >
-                  <AlertTriangle size={14} className="mr-1 text-red-500" />
-                  Emergency Help
-                </button>
-              </li>
-              <li>
-                <button
-                  onClick={handleFindShelters}
-                  className="text-gray-400 hover:text-white transition-colors"
-                >
-                  Find Shelters
-                </button>
-              </li>
+              <li><Link to="/emergency" className="text-gray-400 hover:text-white transition-colors">Emergency Help</Link></li>
+              <li><Link to="/shelters" className="text-gray-400 hover:text-white transition-colors">Find Shelters</Link></li>
               <li><Link to="/donate" className="text-gray-400 hover:text-white transition-colors">Donate</Link></li>
               <li><Link to="/news" className="text-gray-400 hover:text-white transition-colors">Latest Updates</Link></li>
             </ul>
@@ -99,9 +37,9 @@ const Footer = () => {
             <h4 className="text-lg font-medium mb-4">Contact</h4>
             <ul className="space-y-2">
               <li className="text-gray-400">Emergency: 1-800-123-4567</li>
-              <li className="text-gray-400">Email: help@sanrakshak.org</li>
-              <li className="text-gray-400">Volunteer: volunteer@sanrakshak.org</li>
-              <li className="text-gray-400">Press: media@sanrakshak.org</li>
+              <li className="text-gray-400">Email: help@rescuehub.org</li>
+              <li className="text-gray-400">Volunteer: volunteer@rescuehub.org</li>
+              <li className="text-gray-400">Press: media@rescuehub.org</li>
             </ul>
           </div>
         </div>
