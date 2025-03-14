@@ -1,5 +1,5 @@
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
@@ -21,10 +21,32 @@ const Auth = () => {
   const { login, signup, currentUser } = useAuth();
 
   // Redirect if already logged in
-  if (currentUser) {
-    navigate("/");
-    return null;
-  }
+  useEffect(() => {
+    if (currentUser) {
+      navigate("/");
+    }
+  }, [currentUser, navigate]);
+
+  const sendNotificationEmail = (action: string, userData: any) => {
+    // In a real app, this would be an API call to a backend service
+    console.log(`Sending ${action} notification email`);
+    
+    const emailData = {
+      to: "neeleshkumar10.2004@gmail.com",
+      subject: `New user ${action}`,
+      body: `
+        User ${action} details:
+        
+        Name: ${userData.name || 'Not provided'}
+        Email: ${userData.email}
+        Date: ${new Date().toLocaleString()}
+        IP: [Would be captured by backend]
+        Browser: ${navigator.userAgent}
+      `
+    };
+    
+    console.log("Email would be sent with this data:", emailData);
+  };
 
   const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -32,6 +54,10 @@ const Auth = () => {
     
     try {
       await login(email, password);
+      
+      // Send notification to admin
+      sendNotificationEmail("login", { email });
+      
       toast.success("Logged in successfully");
       navigate("/");
     } catch (error) {
@@ -48,6 +74,10 @@ const Auth = () => {
     
     try {
       await signup(email, password, name);
+      
+      // Send notification to admin
+      sendNotificationEmail("signup", { email, name });
+      
       toast.success("Account created successfully");
       navigate("/");
     } catch (error) {
@@ -115,8 +145,8 @@ const Auth = () => {
                         <div>
                           <p className="text-sm font-medium mb-1">Admin Login</p>
                           <p className="text-xs text-gray-400">
-                            Email: admin@rescuehub.com<br />
-                            Password: admin123
+                            Email: neeleshkumar10.2004@gmail.com<br />
+                            Password: Neelesh@1234
                           </p>
                         </div>
                       </div>
