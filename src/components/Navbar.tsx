@@ -19,7 +19,7 @@ const Navbar = () => {
     <nav className="sticky top-0 z-50 backdrop-blur-lg bg-black/80 border-b border-white/10">
       <div className="container mx-auto px-4 py-3 flex justify-between items-center">
         <Link to="/" className="text-2xl font-bold tracking-tighter">
-          RESCUE<span className="text-gray-400">HUB</span>
+          SAN<span className="text-gray-400">RAKSHAK</span>
         </Link>
         
         <div className="hidden md:flex items-center space-x-6">

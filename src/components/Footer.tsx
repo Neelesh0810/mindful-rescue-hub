@@ -7,7 +7,7 @@ const Footer = () => {
       <div className="container mx-auto px-4">
         <div className="grid grid-cols-1 md:grid-cols-4 gap-8 mb-12">
           <div>
-            <h3 className="text-xl font-bold mb-4">RescueHub</h3>
+            <h3 className="text-xl font-bold mb-4">Sanrakshak</h3>
             <p className="text-gray-400 mb-4">
               Connecting victims, volunteers, and organizations for effective disaster response and recovery.
             </p>
@@ -46,7 +46,7 @@ const Footer = () => {
         
         <div className="border-t border-white/10 pt-6 flex flex-col md:flex-row justify-between items-center">
           <p className="text-gray-400 text-sm mb-4 md:mb-0">
-            © {new Date().getFullYear()} RescueHub. All rights reserved.
+            © {new Date().getFullYear()} Sanrakshak. All rights reserved.
           </p>
           <div className="flex space-x-4">
             <Link to="/privacy" className="text-gray-400 text-sm hover:text-white transition-colors">Privacy Policy</Link>
