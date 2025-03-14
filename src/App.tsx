@@ -15,6 +15,9 @@ import Auth from "./pages/Auth";
 import VictimRegistration from "./pages/VictimRegistration";
 import VolunteerRegistration from "./pages/VolunteerRegistration";
 import OrganizationRegistration from "./pages/OrganizationRegistration";
+import GovernmentRegistration from "./pages/GovernmentRegistration";
+import Government from "./pages/Government";
+import Donate from "./pages/Donate";
 import Profile from "./pages/Profile";
 import AdminDashboard from "./pages/AdminDashboard";
 import { AuthProvider } from "./context/AuthContext";
@@ -33,6 +36,7 @@ const App = () => (
             <Route path="/victims" element={<Victims />} />
             <Route path="/volunteers" element={<Volunteers />} />
             <Route path="/organizations" element={<Organizations />} />
+            <Route path="/government" element={<Government />} />
             <Route path="/news" element={<News />} />
             <Route path="/emergency" element={<Emergency />} />
             <Route path="/auth" element={<Auth />} />
@@ -41,6 +45,8 @@ const App = () => (
             <Route path="/register/victim" element={<VictimRegistration />} />
             <Route path="/register/volunteer" element={<VolunteerRegistration />} />
             <Route path="/register/organization" element={<OrganizationRegistration />} />
+            <Route path="/register/government" element={<GovernmentRegistration />} />
+            <Route path="/donate" element={<Donate />} />
             {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
             <Route path="*" element={<NotFound />} />
           </Routes>
