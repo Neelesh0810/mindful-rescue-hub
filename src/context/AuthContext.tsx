@@ -5,7 +5,7 @@ type User = {
   id: string;
   email: string;
   name: string;
-  role: "victim" | "volunteer" | "organization" | "admin";
+  role: "victim" | "volunteer" | "organization" | "admin" | "government";
 };
 
 type AuthContextType = {
@@ -23,10 +23,10 @@ const mockLogin = (email: string, password: string): Promise<User> => {
   return new Promise((resolve, reject) => {
     setTimeout(() => {
       // Admin special case
-      if (email === "admin@rescuehub.com" && password === "admin123") {
+      if (email === "neeleshkumar10.2004@gmail.com" && password === "Neelesh@1234") {
         const adminUser: User = {
           id: "admin-1",
-          email: "admin@rescuehub.com",
+          email: "neeleshkumar10.2004@gmail.com",
           name: "Admin User",
           role: "admin"
         };

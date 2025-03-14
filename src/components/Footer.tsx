@@ -2,6 +2,23 @@
 import { Link } from "react-router-dom";
 
 const Footer = () => {
+  const handleFindShelters = () => {
+    // Get user's current location and redirect to shelters page
+    if (navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition((position) => {
+        const { latitude, longitude } = position.coords;
+        window.location.href = `/shelters?lat=${latitude}&lng=${longitude}`;
+      }, (error) => {
+        console.error("Error getting location:", error);
+        // Redirect to shelters page without coordinates
+        window.location.href = "/shelters";
+      });
+    } else {
+      // Fallback if geolocation is not available
+      window.location.href = "/shelters";
+    }
+  };
+
   return (
     <footer className="bg-black py-12 border-t border-white/10">
       <div className="container mx-auto px-4">
@@ -27,7 +44,7 @@ const Footer = () => {
             <h4 className="text-lg font-medium mb-4">Quick Links</h4>
             <ul className="space-y-2">
               <li><Link to="/emergency" className="text-gray-400 hover:text-white transition-colors">Emergency Help</Link></li>
-              <li><Link to="/shelters" className="text-gray-400 hover:text-white transition-colors">Find Shelters</Link></li>
+              <li><button onClick={handleFindShelters} className="text-gray-400 hover:text-white transition-colors text-left">Find Shelters</button></li>
               <li><Link to="/donate" className="text-gray-400 hover:text-white transition-colors">Donate</Link></li>
               <li><Link to="/news" className="text-gray-400 hover:text-white transition-colors">Latest Updates</Link></li>
             </ul>
@@ -37,9 +54,9 @@ const Footer = () => {
             <h4 className="text-lg font-medium mb-4">Contact</h4>
             <ul className="space-y-2">
               <li className="text-gray-400">Emergency: 1-800-123-4567</li>
-              <li className="text-gray-400">Email: help@rescuehub.org</li>
-              <li className="text-gray-400">Volunteer: volunteer@rescuehub.org</li>
-              <li className="text-gray-400">Press: media@rescuehub.org</li>
+              <li className="text-gray-400">Email: help@sanrakshak.org</li>
+              <li className="text-gray-400">Volunteer: volunteer@sanrakshak.org</li>
+              <li className="text-gray-400">Press: media@sanrakshak.org</li>
             </ul>
           </div>
         </div>

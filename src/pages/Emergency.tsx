@@ -3,8 +3,27 @@ import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import { AlertTriangle, Phone } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { sendEmergencyNotification } from "@/services/emailService"; 
+import { toast } from "sonner";
+import { useState } from "react";
+import WeatherWidget from "@/components/WeatherWidget";
 
 const Emergency = () => {
+  const [sendingAlert, setSendingAlert] = useState(false);
+
+  const handleEmergencyCall = async () => {
+    setSendingAlert(true);
+    try {
+      await sendEmergencyNotification();
+      toast.success("Emergency notification sent! Help is on the way.");
+    } catch (error) {
+      console.error("Failed to send emergency notification:", error);
+      toast.error("Failed to send emergency notification. Please call directly.");
+    } finally {
+      setSendingAlert(false);
+    }
+  };
+
   return (
     <div className="min-h-screen bg-background text-foreground flex flex-col">
       <Navbar />
@@ -24,14 +43,19 @@ const Emergency = () => {
             <p className="text-gray-400 text-center mb-6">For life-threatening emergencies, always call 911 first</p>
             
             <div className="flex justify-center">
-              <Button size="lg" className="bg-red-500 hover:bg-red-600">
+              <Button 
+                size="lg" 
+                className="bg-red-500 hover:bg-red-600"
+                onClick={handleEmergencyCall}
+                disabled={sendingAlert}
+              >
                 <Phone className="mr-2" />
-                Call Now
+                {sendingAlert ? "Sending Alert..." : "Send Emergency Alert"}
               </Button>
             </div>
           </div>
           
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-4xl mx-auto">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-4xl mx-auto mb-8">
             <div className="bg-black/40 border border-white/10 rounded-lg p-6">
               <h3 className="text-xl font-bold mb-4">Medical Emergencies</h3>
               <p className="text-gray-300 mb-4">Contact the nearest hospital or medical center for immediate medical attention.</p>
@@ -43,6 +67,11 @@ const Emergency = () => {
               <p className="text-gray-300 mb-4">Specialized assistance for disaster-related emergencies.</p>
               <p className="text-xl font-mono">1-800-345-6789</p>
             </div>
+          </div>
+          
+          <div className="bg-black/40 border border-white/10 rounded-lg p-6 max-w-4xl mx-auto">
+            <h3 className="text-xl font-bold mb-4">Current Weather Conditions</h3>
+            <WeatherWidget />
           </div>
         </div>
       </main>

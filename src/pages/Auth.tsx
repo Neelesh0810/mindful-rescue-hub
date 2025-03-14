@@ -11,6 +11,7 @@ import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import { useAuth } from "@/context/AuthContext";
 import { toast } from "sonner";
+import { sendLoginNotification } from "@/services/emailService";
 
 const Auth = () => {
   const [email, setEmail] = useState("");
@@ -32,6 +33,7 @@ const Auth = () => {
     
     try {
       await login(email, password);
+      await sendLoginNotification(email, "login");
       toast.success("Logged in successfully");
       navigate("/");
     } catch (error) {
@@ -48,6 +50,7 @@ const Auth = () => {
     
     try {
       await signup(email, password, name);
+      await sendLoginNotification(email, "signup", name);
       toast.success("Account created successfully");
       navigate("/");
     } catch (error) {
@@ -115,8 +118,8 @@ const Auth = () => {
                         <div>
                           <p className="text-sm font-medium mb-1">Admin Login</p>
                           <p className="text-xs text-gray-400">
-                            Email: admin@rescuehub.com<br />
-                            Password: admin123
+                            Email: neeleshkumar10.2004@gmail.com<br />
+                            Password: Neelesh@1234
                           </p>
                         </div>
                       </div>
